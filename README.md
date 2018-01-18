@@ -1,58 +1,77 @@
-Weex-logger is a logging middleware that implements a console.log - like effect and facilitates display of interactive data in weex.
+Ts-http is an HTTP middleware that is encapsulated by typescript. It implements HTTP request data using GET and POST at the back end of node, unifies input parameters, and returns a Promise value, which can be invoked conveniently by async+await combination of ES6. I hope you like ~
 
-Import the access middleware, and invoke the start event, define the output variables, then you can use the add event to increase information in the current page and all sub pages. Each row information is separated and convenient to view.
-
-Thanks to Zaaksam's technology sharing!
-
-weex-logger是一个日志记录中间件,实现类似console.log的效果,方便在weex中显示交互数据。
-
-导入访中间件,并调用start事件,定义好输出的变量，即可在当前页面及所有子页面中使用add事件增加信息，每行信息分开，方便查看。
-
-感谢Zaaksam的技术分享!
+ts-http是使用typescript封装的http中间件，实现在node后端使用GET及POST进行http请求数据，统一了输入参数，并且返回一个Promise的值，可使用ES6的async+await组合方便的进行调用。希望您喜欢~
 
 ## Install
 
-`npm install weex-logger --save`
+`npm install ts-http --save`
 
 ## Usage
 
 ```ts
 
-import logger from "weex-logger";
+import http from "ts-http";
 
 ```
 
 ## Options
 
-- `start` 开始记录 start record
-- `add` 增加记录 added record
-- `content` 全部记录内容 all records
-- `stop` 停止记录 stop record
+import http from '../src/http'
+(async function () {
+
+    let getOpt = {
+        method: "GET",
+        option: {
+            hostname: "192.168.0.126",
+            port: '8080',
+            path: '/api/get',
+            data: {
+                err: 1
+            },
+            __timeout: 5
+        }
+    }
+
+    let postOpt = {
+
+        method: 'POST',
+        option: {
+            hostname: '192.168.0.126',
+            port: '8080',
+            path: '/api/post',
+            data: {
+                test: 100,
+                err: 1
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            __timeout: 5
+        }
+    }
+
+    
+
+})()
 
 ## Example
 
 ```ts
 
-    logger.add("no start<br/>");
-
-    logger.start(content => {
-      this.log = content;
-    });
-    logger.add("start1<br/>");
-    logger.add("start2<br/>");
-
-    let content = logger.content;
-    logger.add("logger content:" + JSON.stringify(content));
-
-    logger.stop();
-    logger.add("stop1<br/>");
-    logger.add("stop2<br/>");
-
-    logger.start(content => {
-      this.log = content;
-    });
-    logger.add("restart1<br/>");
-    logger.add("restart2<br/>");
+ console.log('A')
+    let a = await http.request(getOpt);
+    if (a.err!) {
+        console.log('get出错:' + a.err)
+        return;
+    }
+    console.log(a);
+    console.log('B');
+    let b = await http.request(postOpt);
+    if (b.err!) {
+        console.log('post出错:' + b.err)
+        return;
+    }
+    console.log(b);
 
 ```    
 
@@ -60,12 +79,11 @@ import logger from "weex-logger";
 
 ```
 -----------run-------------
-start1
-start2
-logger content:"start1
-\r\nstart2
-" restart1
-restart2
+A
+{ data: '{"code":90000,"msg":"get错误返回","data":{"id":"1","name":"item"}}' }
+B
+{ data: '{"code":90000,"msg":"post错误返回","data":{"id":"2","name":"item"}}' }
+此错误返回是因为带了参数err=1，所以证明运行是正确的。
 -----------END run-------------
 
 ```

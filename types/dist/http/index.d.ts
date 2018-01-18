@@ -9,10 +9,11 @@ export declare namespace httpModel {
     interface option {
         method?: string;
         hostname: string;
-        port: string;
+        port: string | number;
         path?: string;
         header?: any;
         data?: any;
+        __timeout?: number;
     }
     interface httpResult {
         err?: string;

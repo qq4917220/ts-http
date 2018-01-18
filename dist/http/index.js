@@ -39,6 +39,7 @@ var Http = /** @class */ (function () {
      * @returns {string}
      */
     Http.prototype.request = function (httpData) {
+        var timeout = 8;
         //将请求参数转化为字符串格式
         var option = httpData.option;
         option.method = httpData.method;
@@ -51,6 +52,9 @@ var Http = /** @class */ (function () {
         if (typeof option.data != 'undefined') {
             reqContent = require('querystring').stringify(option.data);
         }
+        if (option.__timeout) {
+            timeout = option.__timeout;
+        }
         if (option.method == 'GET' && reqContent != '') {
             //当GET且具备参数时，将请求参数附加到地址栏上
             option.path += '?' + reqContent;
@@ -59,7 +63,8 @@ var Http = /** @class */ (function () {
         // console.log(httpData)
         // console.log('--------option------------')
         // console.log(option)
-        // console.log('--------------------')
+        // console.log('---------reqContent-----------')
+        // console.log(reqContent)
         var dr = new Promise(function (resolve, reject) {
             var dm = {};
             var req = http.request(option, function (res) {
@@ -81,16 +86,17 @@ var Http = /** @class */ (function () {
                 dm.err = e.message;
                 resolve(dm);
             });
-            req.setTimeout(1000 * 5);
-            // if (option.method == 'POST') {
-            //     //当POST时使用req.write将参数写入
-            //     try {
-            //         req.write(reqContent);
-            //     } catch (e) {
-            //         dm.err! = e
-            //         resolve(dm)
-            //     }
-            // }
+            req.setTimeout(timeout * 1000); //设置超时
+            if (option.method == 'POST') {
+                //当POST时使用req.write将参数写入
+                try {
+                    req.write(reqContent);
+                }
+                catch (e) {
+                    dm.err = e;
+                    resolve(dm);
+                }
+            }
             req.end();
         });
         return dr;
