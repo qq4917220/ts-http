@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es5",
+            "scripthost",
+            "es2015"
+        ],
+        "module": "es2015",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        // "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        // "allowJs": true,
+        "outDir": "dist"
+    },
+    "files": [
+        "./src/index.ts"
+    ],
+    "include": [
+        "./types/**/*",
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./src/**/*"
+    ]
+}
