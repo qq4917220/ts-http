@@ -19,7 +19,8 @@ const http_1 = require("../src/http");
                 path: '/api/get',
                 data: {
                     err: 1
-                }
+                },
+                __timeout: 5
             }
         };
         let postOpt = {
@@ -34,7 +35,8 @@ const http_1 = require("../src/http");
                 },
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                },
+                __timeout: 5
             }
         };
         console.log('A');

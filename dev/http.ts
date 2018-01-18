@@ -9,7 +9,8 @@ import http from '../src/http'
             path: '/api/get',
             data: {
                 err: 1
-            }
+            },
+            __timeout: 5
         }
     }
 
@@ -26,7 +27,8 @@ import http from '../src/http'
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            },
+            __timeout: 5
         }
     }
 

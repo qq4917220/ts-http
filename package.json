@@ -1,6 +1,6 @@
 {
   "name": "ts-http",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "types": "types/dist/index.d.ts",
   "author": "qq4917220 <4917220@qq.com>",

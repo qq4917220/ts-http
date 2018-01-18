@@ -50,13 +50,16 @@ var Http = /** @class */ (function () {
         var reqContent = '';
         if (typeof option.data != 'undefined') {
             reqContent = require('querystring').stringify(option.data);
-            delete option.data;
         }
         if (option.method == 'GET' && reqContent != '') {
             //当GET且具备参数时，将请求参数附加到地址栏上
             option.path += '?' + reqContent;
         }
+        // console.log('--------httpData------------')
+        // console.log(httpData)
+        // console.log('--------option------------')
         // console.log(option)
+        // console.log('--------------------')
         var dr = new Promise(function (resolve, reject) {
             var dm = {};
             var req = http.request(option, function (res) {
@@ -78,16 +81,16 @@ var Http = /** @class */ (function () {
                 dm.err = e.message;
                 resolve(dm);
             });
-            if (option.method == 'POST') {
-                //当POST时使用req.write将参数写入
-                try {
-                    req.write(reqContent);
-                }
-                catch (e) {
-                    dm.err = e;
-                    resolve(dm);
-                }
-            }
+            req.setTimeout(1000 * 5);
+            // if (option.method == 'POST') {
+            //     //当POST时使用req.write将参数写入
+            //     try {
+            //         req.write(reqContent);
+            //     } catch (e) {
+            //         dm.err! = e
+            //         resolve(dm)
+            //     }
+            // }
             req.end();
         });
         return dr;
@@ -96,5 +99,5 @@ var Http = /** @class */ (function () {
     return Http;
 }());
 export { Http };
-var i = new Http();
+var i = Http.Instance;
 export default i;

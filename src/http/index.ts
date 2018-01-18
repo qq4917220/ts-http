@@ -15,10 +15,11 @@ export namespace httpModel {
     export interface option {
         method?: string
         hostname: string
-        port: string
+        port: string | number
         path?: string
         header?: any
         data?: any
+        __timeout?: number
     }
     export interface httpResult {
         err?: string
@@ -63,6 +64,7 @@ export class Http {
      */
     request(httpData: httpModel.request): Promise<httpModel.httpResult> {
 
+        let timeout = 8;
         //将请求参数转化为字符串格式
         let option = httpData.option;
         option.method = httpData.method;
@@ -76,6 +78,9 @@ export class Http {
         if (typeof option.data != 'undefined') {
             reqContent = require('querystring').stringify(option.data);
         }
+        if (option.__timeout) {
+            timeout = option.__timeout
+        }
         if (option.method == 'GET' && reqContent != '') {
             //当GET且具备参数时，将请求参数附加到地址栏上
             option.path += '?' + reqContent;
@@ -85,9 +90,10 @@ export class Http {
         // console.log(httpData)
         // console.log('--------option------------')
         // console.log(option)
-        // console.log('--------------------')
+        // console.log('---------reqContent-----------')
+        // console.log(reqContent)
 
-        let dr = new Promise(function (resolve, reject) {
+        let dr = new Promise((resolve, reject) => {
             let dm: httpModel.httpResult = {}
             let req = http.request(option, function (res: any) {
                 let resContent = '';
@@ -107,6 +113,7 @@ export class Http {
                 dm.err! = e.message;
                 resolve(dm)
             });
+            req.setTimeout(timeout * 1000); //设置超时
             if (option.method == 'POST') {
                 //当POST时使用req.write将参数写入
                 try {

@@ -31,7 +31,7 @@ router.get('/get', async (req: any, res: any) => {
     res.json(result)
 })
 
-router.post('/post', async (req: any, res: any) => {
+router.use('/post', async (req: any, res: any) => {
     let name = 'post'
     let result: any
     let querys: any = GetQuerys(req)

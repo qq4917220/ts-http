@@ -37,7 +37,7 @@ router.get('/get', (req, res) => __awaiter(this, void 0, void 0, function* () {
     }
     res.json(result);
 }));
-router.post('/post', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.use('/post', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let name = 'post';
     let result;
     let querys = GetQuerys(req);
