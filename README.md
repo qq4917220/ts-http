@@ -16,8 +16,7 @@ import http from "ts-http";
 
 ## Options
 
-import http from '../src/http'
-(async function () {
+```ts
 
     let getOpt = {
         method: "GET",
@@ -49,10 +48,8 @@ import http from '../src/http'
             __timeout: 5
         }
     }
-
     
-
-})()
+```
 
 ## Example
 
