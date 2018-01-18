@@ -5,7 +5,10 @@ const express = require("express");
 const app = express();
 const root = __dirname;
 const api = require("./api")
-// const st = path.join(root, '..', '..', 'dist');
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 function getIPAdress() {
     var interfaces = require('os').networkInterfaces();

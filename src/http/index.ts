@@ -71,17 +71,21 @@ export class Http {
                 err: 'method err!'
             })
         }
+
         let reqContent = '';
         if (typeof option.data != 'undefined') {
             reqContent = require('querystring').stringify(option.data);
-            delete option.data;
         }
         if (option.method == 'GET' && reqContent != '') {
             //当GET且具备参数时，将请求参数附加到地址栏上
             option.path += '?' + reqContent;
         }
 
+        // console.log('--------httpData------------')
+        // console.log(httpData)
+        // console.log('--------option------------')
         // console.log(option)
+        // console.log('--------------------')
 
         let dr = new Promise(function (resolve, reject) {
             let dm: httpModel.httpResult = {}
@@ -119,4 +123,4 @@ export class Http {
 }
 
 const i = Http.Instance
-export default i;
+export default i

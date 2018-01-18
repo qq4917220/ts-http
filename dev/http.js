@@ -8,31 +8,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http = require("../src/server");
+const http_1 = require("../src/http");
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(http);
-        return;
         let getOpt = {
             method: "GET",
             option: {
-                hostname: "develop.yingsheng.com",
-                port: '8011',
-                path: '/ajax/api/item',
+                hostname: "192.168.0.126",
+                port: '8080',
+                path: '/api/get',
                 data: {
-                    err: 90000
+                    err: 1
                 }
             }
         };
         let postOpt = {
             method: 'POST',
             option: {
-                hostname: 'develop.yingsheng.com',
-                port: '8011',
-                path: '/ajax/api/item',
+                hostname: '192.168.0.126',
+                port: '8080',
+                path: '/api/post',
                 data: {
                     test: 100,
-                    err: 90000
+                    err: 1
                 },
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -40,12 +38,18 @@ const http = require("../src/server");
             }
         };
         console.log('A');
-        let h = yield http.request(postOpt);
-        if (h.err) {
-            console.log('出错:' + h.err);
+        let a = yield http_1.default.request(getOpt);
+        if (a.err) {
+            console.log('get出错:' + a.err);
             return;
         }
-        console.log(h);
+        console.log(a);
         console.log('B');
+        let b = yield http_1.default.request(postOpt);
+        if (b.err) {
+            console.log('post出错:' + b.err);
+            return;
+        }
+        console.log(b);
     });
 })();

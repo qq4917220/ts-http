@@ -1,14 +1,14 @@
-import * as http from '../src/http'
+import http from '../src/http'
 (async function () {
 
     let getOpt = {
         method: "GET",
         option: {
-            hostname: "develop.yingsheng.com",
-            port: '8011',
-            path: '/ajax/api/item',
+            hostname: "192.168.0.126",
+            port: '8080',
+            path: '/api/get',
             data: {
-                err: 90000
+                err: 1
             }
         }
     }
@@ -17,12 +17,12 @@ import * as http from '../src/http'
 
         method: 'POST',
         option: {
-            hostname: 'develop.yingsheng.com',
-            port: '8011',
-            path: '/ajax/api/item',
+            hostname: '192.168.0.126',
+            port: '8080',
+            path: '/api/post',
             data: {
                 test: 100,
-                err: 90000
+                err: 1
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,12 +31,18 @@ import * as http from '../src/http'
     }
 
     console.log('A')
-    let h = await http.default.request(postOpt);
-    if (h.err!) {
-        console.log('出错:' + h.err)
+    let a = await http.request(getOpt);
+    if (a.err!) {
+        console.log('get出错:' + a.err)
         return;
     }
-    console.log(h);
+    console.log(a);
     console.log('B');
+    let b = await http.request(postOpt);
+    if (b.err!) {
+        console.log('post出错:' + b.err)
+        return;
+    }
+    console.log(b);
 
 })()

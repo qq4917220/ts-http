@@ -16,7 +16,7 @@ router.get('/get', (req, res) => __awaiter(this, void 0, void 0, function* () {
     let querys = GetQuerys(req);
     let err = querys.err;
     let item = {
-        id: 1,
+        id: "1",
         name: 'item'
     };
     if (err == '1') {
@@ -43,7 +43,7 @@ router.post('/post', (req, res) => __awaiter(this, void 0, void 0, function* () 
     let querys = GetQuerys(req);
     let err = querys.err;
     let item = {
-        id: 1,
+        id: "2",
         name: 'item'
     };
     if (err == '1') {

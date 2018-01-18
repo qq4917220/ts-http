@@ -10,7 +10,7 @@ router.get('/get', async (req: any, res: any) => {
     let querys: any = GetQuerys(req)
     let err: string = querys.err
     let item = {
-        id: 1,
+        id: "1",
         name: 'item'
     }
     if (err == '1') {
@@ -37,7 +37,7 @@ router.post('/post', async (req: any, res: any) => {
     let querys: any = GetQuerys(req)
     let err: string = querys.err
     let item = {
-        id: 1,
+        id: "2",
         name: 'item'
     }
     if (err == '1') {
